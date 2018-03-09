@@ -5,13 +5,12 @@ using System.Xml;
 
 public class ReadFromXml  {
 
-	public static string Read(string path, string target)
+	public static XmlNode Read(string path, string target)
     {
         XmlDocument XmlDoc = new XmlDocument();
         XmlDoc.Load(Application.dataPath + path );
         XmlNode node = XmlDoc.SelectSingleNode(target);
-        string text = node.InnerText;
-        return text;
+        return node;
     }
     public static int NumberOfQuestions(string path)
     {
