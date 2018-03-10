@@ -17,7 +17,7 @@ public class Judging : MonoBehaviour  {
 
 
     void Start () {
-        ShowQuestion.ReadTask();
+        
         rightAnswer = ShowQuestion.GetRightAnswer();
         scoreBoard = GameObject.Find("ScoreBoard");
         score=scoreBoard.GetComponentInChildren<Text>();
@@ -36,7 +36,10 @@ public class Judging : MonoBehaviour  {
         {
             return;
         }
-
+        if (rightAnswer == null)
+        {
+            rightAnswer = ShowQuestion.GetRightAnswer();
+        }
         myAns = button.GetComponentInChildren<Text>().text;
         if(myAns==rightAnswer)
         {

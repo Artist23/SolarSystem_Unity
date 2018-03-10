@@ -15,7 +15,6 @@ public class ShowQuestion : MonoBehaviour {
 
     static string GetNextQuestionPath ()
     {
-        
          strQuestionPath = string.Format("QA/Question{0}", nQuestionNumber);
          ++nQuestionNumber; 
          return strQuestionPath;
@@ -50,7 +49,7 @@ public class ShowQuestion : MonoBehaviour {
     }
 
 	void Start () {
-        //nQuestionNumber = 1;
+        ReadTask();
         questionSheet = gameObject.GetComponent<Text>();
 
         if (nQuestionNumber <= ReadFromXml.NumberOfQuestions("\\MyAssets\\Resource\\QA.xml"))
