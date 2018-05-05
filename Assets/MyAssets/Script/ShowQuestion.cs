@@ -22,11 +22,11 @@ public class ShowQuestion : MonoBehaviour {
 
     public static void ReadTask()
     {
-        if (nQuestionNumber > ReadFromXml.NumberOfQuestions("\\MyAssets\\Resource\\QA.xml"))
+        if (nQuestionNumber > ReadFromXml.NumberOfQuestions("\\MyAssets\\Resources\\QA.xml"))
         {
             return;
         }
-        XmlNode node = ReadFromXml.Read("\\MyAssets\\Resource\\QA.xml", GetNextQuestionPath());
+        XmlNode node = ReadFromXml.Read("\\MyAssets\\Resources\\QA.xml", GetNextQuestionPath());
         strQuestion = node.SelectSingleNode("q").InnerText;
         a1 = node.SelectSingleNode("a1").InnerText;
         a2 = node.SelectSingleNode("a2").InnerText;
@@ -49,10 +49,12 @@ public class ShowQuestion : MonoBehaviour {
     }
 
 	void Start () {
+       
+        TextAsset myText = Resources.Load("QA") as TextAsset;
         ReadTask();
         questionSheet = gameObject.GetComponent<Text>();
 
-        if (nQuestionNumber <= ReadFromXml.NumberOfQuestions("\\MyAssets\\Resource\\QA.xml"))
+        if (nQuestionNumber <= ReadFromXml.NumberOfQuestions("\\MyAssets\\Resources\\QA.xml"))
         {
             Show();
         }

@@ -6,8 +6,8 @@ using UnityEngine.EventSystems;
 public class ButtonRay : MonoBehaviour {
     private Transform  camera;
     private GameObject currentButton;
-    private float timeToSelect = 3.0f;  //timelaps
-    private float countDown = 3.0f;
+    private float timeToSelect = 2.0f;  //timelaps
+    private float countDown = 2.0f;
 
     void Start()
     {
@@ -19,6 +19,7 @@ public class ButtonRay : MonoBehaviour {
         RaycastHit hit;
         GameObject hitButton = null;
         PointerEventData data = new PointerEventData(EventSystem.current);
+
         
         if (Physics.Raycast(ray, out hit))
         {

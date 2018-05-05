@@ -6,16 +6,19 @@ using UnityEngine.UI;
 
 public class ChangeScene : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-        
-        gameObject .GetComponent <Button>().onClick.AddListener(Change);
+    public string sceneName;
 
-        
+	void Start () {     
+        gameObject .GetComponent <Button>().onClick.AddListener(Change);
     }
+
     void Change()
     {
-        SceneManager.LoadScene("Earth");
+        if (sceneName == null)
+        {
+            return;
+        }
+        SceneManager.LoadScene(sceneName);
     }
 	
 	// Update is called once per frame

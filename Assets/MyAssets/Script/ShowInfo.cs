@@ -1,30 +1,33 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Xml;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ShowInfo : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        Transform camera = Camera.main.transform;
-        Ray ray;
-        RaycastHit hit;
-        GameObject hitObject;
-        ray = new Ray(camera.position, camera.rotation * Vector3.forward); //a ray from camera and casting forward
-
-        if (Physics.Raycast(ray, out hit))            // if something hit by the ray
-        {
-            hitObject = hit.collider.gameObject;     //get the hit object
-            Debug.Log("Tejo:" + hitObject.name);
-            GameObject te = GameObject.Find("VisorCanvas/Text");    //get the UI Text object
-            Text tt = te.GetComponent<Text>();
-            tt.text = hitObject.name;           // show object name on canvas
-        }
+    String ReadResFromXml(String target)         //read from XML
+    {
+        String text;
+        XmlDocument xmlDoc = new XmlDocument();
+        TextAsset myText = Resources.Load("Info") as TextAsset;
+        xmlDoc.LoadXml(myText.text);
+        XmlNode Child = xmlDoc.SelectSingleNode("Solar/" + target);
+        text = Child.InnerText;     
+        return text;
     }
+
+    void Start () {
+        //GameObject text = GameObject.Find("Text");
+        Text t = gameObject.GetComponent<Text>();
+        String name = gameObject.scene.name;          //get scene name
+        t.text = ReadResFromXml(name);                //show the target infomation
+    }
+
+    void Update () {
+		
+	}
 }
