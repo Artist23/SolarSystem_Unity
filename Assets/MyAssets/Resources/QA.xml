@@ -1,0 +1,23 @@
+<QA number="3">
+  <Question1>
+    <q>1.Which planet is the biggest in solar system?</q>
+    <a1>Jupiter</a1>
+    <a2>Earth</a2>
+    <a3>Saturn</a3>
+    <rightAnswer>Jupiter</rightAnswer>
+  </Question1>
+  <Question2>
+    <q>2.Which planet is the smallest?</q>
+    <a1>Jupiter</a1>
+    <a2>Murcury</a2>
+    <a3>Mars</a3>
+    <rightAnswer>Murcury</rightAnswer>
+  </Question2>
+  <Question3>
+    <q>3.Which planet is closest to the sun?</q>
+    <a1>Mars</a1>
+    <a2>Venus</a2>
+    <a3>Murcury</a3>
+    <rightAnswer>Murcury</rightAnswer>
+  </Question3>
+</QA>

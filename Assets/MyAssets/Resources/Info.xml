@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Solar>
+    <Earth>                          Earth
+
+Diameter: 12742km
+Distance to sun: 150 millin km
+    </Earth>
+    <Venus>                           Venus
+Diameter: 12104km    
+Venus is the second planet from the Sun
+It has the longest rotation period: 243 days
+Rotates in the opposite direction to most other planets.
+    </Venus>
+    <Mercury>                        Mercury 
+Diameter: 4879km  
+The smallest and innermost planet in the Solar System.
+
+Orbital period: 87.97 days, is the shortest of all the planets in the Solar System.      
+    </Mercury>
+    <Mars>                           Mars
+Diameter: 12104km  
+Mars is a terrestrial planet with a thin atmosphere
+It is the fourth planet from the Sun and the second-smallest planet.
+The reddish iron oxide prevalent on its surface gives it a reddish appearance     
+    </Mars>
+    <Jupiter>                        Jupiter
+Jupiter is a gas giant planet(139822km), primarily composed of hydrogen. 
+The outer atmosphere is segregated into several bands, resulting in turbulence and storms.
+A prominent result is the Great Red Spot, a giant storm that is known to have existed since at least the 17th century
+    </Jupiter>
+    <Saturn>                         Saturn
+Saturn is a gas giant with an average radius(116464km) about nine times that of Earth.
+The core of Saturn is surrounded by a deep layer of metallic hydrogen
+Wind speeds on Saturn can reach 1,800 km/h (1,100 mph), higher than on Jupiter
+    </Saturn>
+    <Uranus>                         Uranus
+The "ice giant". It has the coldest planetary atmosphere in the Solar System, with a minimum temperature of −224 °C
+It's axis of rotation is tilted sideways(97.77°), nearly into the plane of its solar orbit.
+Wind speeds can reach 900 km/h.
+    </Uranus>
+    <Neptune>                        Neptune
+The densest giant planet in the solar system, one of the "ice giants".
+
+Traces of methane in the outermost regions in part account for it's blue appearance.
+Neptune has the strongest wind (2100 km/h) in the solar system.
+    </Neptune>
+</Solar>
