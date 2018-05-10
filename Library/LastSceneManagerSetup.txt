@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/MyAssets/Scene/Quiz.unity
+- path: Assets/MyAssets/Scene/Earth.unity
   isLoaded: 1
   isActive: 1
