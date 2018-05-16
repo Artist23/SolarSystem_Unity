@@ -7,7 +7,7 @@ public class ButtonRay : MonoBehaviour {
     private Transform  camera;
     private GameObject currentButton;
     private float timeToSelect = 2.0f;  //timelaps
-    private float countDown = 2.0f;
+    private float countDown = 1.0f;
 
     void Start()
     {
@@ -44,7 +44,7 @@ public class ButtonRay : MonoBehaviour {
         if (currentButton != null)
         {
             countDown -= Time.deltaTime;  //count down
-            if (Input.GetMouseButton (0) || countDown < 0.0f)
+            if (Input.GetMouseButton (0) || countDown < 0.0f || Input.GetButtonDown ("Fire1"))
             { // click
                 ExecuteEvents.Execute<IPointerClickHandler>(currentButton, data, ExecuteEvents.pointerClickHandler);
                 countDown = timeToSelect;     //reset the timer
