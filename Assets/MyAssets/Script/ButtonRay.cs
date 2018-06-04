@@ -23,7 +23,7 @@ public class ButtonRay : MonoBehaviour {
         
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.collider.gameObject.tag == "Button")      //if button is hited
+            if (hit.collider.gameObject.tag == "Button")      //if button is hit
             {
                 hitButton = hit.collider.gameObject;          //get the button
             }
@@ -34,7 +34,7 @@ public class ButtonRay : MonoBehaviour {
             { // unhighlight
                 ExecuteEvents.Execute<IPointerExitHandler>(currentButton, data, ExecuteEvents.pointerExitHandler);
             }
-            currentButton = hitButton;
+            currentButton = hitButton;  //给Current Button赋值
             if (currentButton != null)
             { // highlight
                 ExecuteEvents.Execute<IPointerEnterHandler>(currentButton, data, ExecuteEvents.pointerEnterHandler);

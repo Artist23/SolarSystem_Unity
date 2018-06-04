@@ -347,10 +347,12 @@
     <Compile Include="Assets\MyAssets\Script\LookFly.cs" />
     <Compile Include="Assets\MyAssets\Script\moonRotate.cs" />
     <Compile Include="Assets\MyAssets\Script\ReadFromXml.cs" />
+    <Compile Include="Assets\MyAssets\Script\ReadFromXmlTest.cs" />
     <Compile Include="Assets\MyAssets\Script\Rotate.cs" />
     <Compile Include="Assets\MyAssets\Script\ShowInfo.cs" />
     <Compile Include="Assets\MyAssets\Script\ShowName.cs" />
     <Compile Include="Assets\MyAssets\Script\ShowQuestion.cs" />
+    <Compile Include="Assets\MyAssets\Script\ShowQuestionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\GoogleVR\Demos\Shaders\HelloVR\HelloVRUnlitGrayscaleToColor.shader" />
@@ -370,6 +372,7 @@
     <None Include="Assets\GoogleVR\Shaders\Video\VideoUnlitShader.shader" />
     <None Include="Assets\MyAssets\Resources\Info.xml" />
     <None Include="Assets\MyAssets\Resources\QA.xml" />
+    <None Include="Assets\MyAssets\Resources\QAtest.xml" />
     <None Include="Assets\MyAssets\Shader\CloudEarth.shader" />
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />

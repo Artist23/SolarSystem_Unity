@@ -6,64 +6,64 @@ using UnityEngine.UI;
 
 public class ShowQuestion : MonoBehaviour {
 
-    static int nQuestionNumber=1;    //question index
-    static string strQuestionPath;   //question‘s path
-    static Text questionSheet;       //the text on UI which is called question sheet
-    static string strQuestion;       //Question 
-    static string strRightAnswer;    //the right answer
-    static string a1, a2, a3;        //3 options
+    private static Text questionText;
+    private static int id = 1;
+    public static GameObject oriButton;
+    public static GameObject oriToggle;
+    public static Transform answerSheet;
+    public static GameObject[] buttons;
+    public static GameObject[] toggles;
+    public static bool isMultiType;
 
-    static string GetNextQuestionPath ()  //get question path
+    void Start()
     {
-         strQuestionPath = string.Format("QA/Question{0}", nQuestionNumber);  //set question path with its number
-         ++nQuestionNumber;          //ready to get next question
-         return strQuestionPath;     //return the question path
+        oriButton = GameObject.Find("Button1");  //get original button
+        oriToggle = GameObject.Find("Toggle");   //get original toggle
+        answerSheet = GameObject.Find("Answers").transform;   //get transform of answersheet 
+        TextAsset myText = Resources.Load("QAtest") as TextAsset;  //load Xml file from resources
+        questionText = GameObject.Find("Question").GetComponentInChildren<Text>(); //find question text component
+
+        Show();
     }
 
-    public static void ReadTask()    //read the whole task(question + 3 options)
+    public static void Show()
     {
-        if (nQuestionNumber > ReadFromXml.NumberOfQuestions("\\MyAssets\\Resources\\QA.xml"))
+
+        questionText.text = ReadFromXml.ReadQuestion(id);  //show question
+        f
+        isMultiType = ReadFromXml.IsMulti(id);   //get question type
+        List<string> optionList = ReadFromXml.ReadAnswers(id);  //read options
+        int optionNum = optionList.Count;
+
+        if (isMultiType)  //if type_multiple
         {
-            return;    //to end the tasks
-        }
-        //get the target node with question path
-        XmlNode node = ReadFromXml.Read("\\MyAssets\\Resources\\QA.xml", GetNextQuestionPath()); 
-        strQuestion = node.SelectSingleNode("q").InnerText;   //get question string
-        a1 = node.SelectSingleNode("a1").InnerText;           //get all 3 options
-        a2 = node.SelectSingleNode("a2").InnerText;
-        a3 = node.SelectSingleNode("a3").InnerText;
-        strRightAnswer = node.SelectSingleNode("rightAnswer").InnerText;  //get the right answer
-    }
-
-    public static void Show()     //add to UI
-    {
-        questionSheet.text = strQuestion;     //show question
-        GameObject[] buttons = GameObject.FindGameObjectsWithTag("Button"); //get all the 3 button
-        buttons[0].GetComponentInChildren<Text>().text = a1;  //change the button text to options
-        buttons[1].GetComponentInChildren<Text>().text = a2;
-        buttons[2].GetComponentInChildren<Text>().text = a3;
-    }
-
-    public static string GetRightAnswer()  //get the right answer
-    {
-        return strRightAnswer;
-    }
-
-	void Start () {
-       
-        TextAsset myText = Resources.Load("QA") as TextAsset;  //load Xml file from resources
-        ReadTask();                                            //read the whole task
-        questionSheet = gameObject.GetComponent<Text>();       //get the text component of UI
-
-        if (nQuestionNumber <= ReadFromXml.NumberOfQuestions("\\MyAssets\\Resources\\QA.xml"))
-        {
-            Show();   
+            Vector3 originalTogglePosition = oriToggle.transform.position;
+            toggles = new GameObject[optionNum];
+            for(int i=0; i < optionNum; i++)
+            {
+                toggles[i] = GameObject.Instantiate(oriToggle, answerSheet);
+                Text optionText = toggles[i].GetComponentInChildren<Text>();
+                optionText.text = optionList[i];
+                toggles[i].tag = "Button";
+                toggles[i].transform.position = originalTogglePosition;
+                originalTogglePosition += Vector3.down * 0.12f;
+            }
+            return;
         }
 
+        Vector3 originalPosition = oriButton.transform.position; 
+        buttons = new GameObject[optionNum];
+        for(int i =0; i < optionNum; i++)
+        {
+
+            buttons[i] = GameObject.Instantiate(oriButton,answerSheet);
+            Text optionText = buttons[i].GetComponentInChildren<Text>();
+            optionText.text = optionList[i];
+            buttons[i].tag = "Button";
+            buttons[i].transform.position = originalPosition;
+            originalPosition += Vector3.down * 0.2f;
+        }
+        id++;
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

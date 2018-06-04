@@ -6,56 +6,87 @@ using System.Xml;
 
 public class Judging : MonoBehaviour  {
 
-    string rightAnswer;    //the right answer
-    string myAns;          //the answer that user chose
+    List<string> rightAnswers;    //the right answer
+    List<string> myAnswers;          //the answer that user chose
     GameObject scoreBoard; //the score board 
-    GameObject button1,button2,button3;   //3 button for options
+    GameObject[] buttons;   //3 button for options
+    GameObject[] toggles;
+    Button confirmButton;
     Text score;                           //score
     float countDown=2.0f;                 //focus on a button for 2 seconds to select it
     public bool updateOn = true;          //update control
     float lastTime;
+    int id = 1;
 
 
     void Start () {
-        
-        rightAnswer = ShowQuestion.GetRightAnswer();      //get the right answer
+
+        rightAnswers = ReadFromXml.ReadRightAnswers(id);
         scoreBoard = GameObject.Find("ScoreBoard");       //get scoreboard object
         score=scoreBoard.GetComponentInChildren<Text>();  //get text componnet of scoreboard
-        button1 = GameObject.Find("Button1");             //get all the buttons with names
-        button2 = GameObject.Find("Button2");
-        button3 = GameObject.Find("Button3");
-        button1.GetComponent<Button>().onClick.AddListener(() => Judge(button1));  //listen to onClick event, then call Judge()
-        button2.GetComponent<Button>().onClick.AddListener(() => Judge(button2));
-        button3.GetComponent<Button>().onClick.AddListener(() => Judge(button3));
-             
-    }
+        if (rightAnswers == null)
+        {
+            return;
+        }
+        
+        confirmButton = GameObject.Find("ConfirmButton").GetComponent<Button>();
+        toggles = GameObject.FindGameObjectsWithTag("Toggle");
+        confirmButton.onClick.AddListener(() => Judge(toggles));
 
+        
+        buttons = GameObject.FindGameObjectsWithTag("Button");
+        for(int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].GetComponent<Button>().onClick.AddListener(() => Judge(buttons[i]));
+        }
+        
+    }
+    
     void Judge(GameObject button)   //judge the button that user have just selected
     {
+
         if (Time.time - lastTime < 5)
         {
             return;
         }
-        if (rightAnswer == null)
+        rightAnswers = ReadFromXml.ReadRightAnswers(id);
+        if (rightAnswers.Count == 1)
         {
-            rightAnswer = ShowQuestion.GetRightAnswer();
+            string myAns = button.GetComponentInChildren<Text>().text;
+            if (myAns == rightAnswers[0])  //if the answer is right
+            {
+                score.text = "That's right!";
+                id++;
+                ShowQuestion.Show();           //show the next question and options
+                rightAnswers = ReadFromXml.ReadRightAnswers(id);  //update the right answer 
+            }
+            else
+            {
+                score.text = "Try Again";  //if not right then print try again
+            }
+            lastTime = Time.time;
+            updateOn = true;
         }
+    }
 
-        myAns = button.GetComponentInChildren<Text>().text;  //get text on the selected button
-
-        if(myAns==rightAnswer)  //if the answer is right
+    void Judge (GameObject[] toggles)
+    {
+        
+        rightAnswers = ReadFromXml.ReadRightAnswers(id);
+        if(toggles.Length == rightAnswers.Count )
         {
+            foreach(GameObject toggle in toggles)
+            {
+                if(!rightAnswers.Contains(toggle.GetComponent<Text>().text))
+                {
+                    score.text = "Try again";
+                    return;
+                }
+            }
             score.text = "That's right!";
-            ShowQuestion.ReadTask();       //read the next question and options and right answer
-            ShowQuestion.Show();           //show the next question and options
-            rightAnswer = ShowQuestion.GetRightAnswer();  //update the right answer 
+            return;
         }
-        else
-        {
-            score.text = "Try Again";  //if not right then print try again
-        }
-        lastTime = Time.time;
-        updateOn = true;
+        score.text = "Try again";
     }
 
 	void Update () {
