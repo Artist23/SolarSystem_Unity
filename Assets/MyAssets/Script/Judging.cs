@@ -9,7 +9,7 @@ public class Judging : MonoBehaviour  {
     List<string> rightAnswers;    //the right answer
     List<string> myAnswers;          //the answer that user chose
     GameObject scoreBoard; //the score board 
-    GameObject[] buttons;   //3 button for options
+    GameObject[] buttons;   //buttons for options
     GameObject[] toggles;
     Button confirmButton;
     Text score;                           //score
@@ -29,19 +29,48 @@ public class Judging : MonoBehaviour  {
             return;
         }
         
-        confirmButton = GameObject.Find("ConfirmButton").GetComponent<Button>();
-        toggles = GameObject.FindGameObjectsWithTag("Toggle");
-        confirmButton.onClick.AddListener(() => Judge(toggles));
+        confirmButton = GameObject.Find("ConfirmButton").GetComponent<Button>();//get confirm button
+        toggles = GameObject.FindGameObjectsWithTag("Toggle"); //find toggles
+        confirmButton.onClick.AddListener(() => Judge(toggles));  //add listener to confirm button
 
         
-        buttons = GameObject.FindGameObjectsWithTag("Button");
+        buttons = GameObject.FindGameObjectsWithTag("Button");  //find buttons
         for(int i = 0; i < buttons.Length; i++)
         {
-            buttons[i].GetComponent<Button>().onClick.AddListener(() => Judge(buttons[i]));
+            GameObject button = buttons[i];
+            button.GetComponent<Button>().onClick.AddListener(() => Judge(button)); //add listener to buttons
         }
         
     }
-    
+    void Init()
+    {
+        GameObject[] t = GameObject.FindGameObjectsWithTag("Toggle"); //find toggles
+        GameObject[] b = GameObject.FindGameObjectsWithTag("Button");  //find buttons
+        if (b.Length != 0)
+        {
+            for (int i = 0; i < b.Length; i++)
+            {
+                GameObject button = b[i];
+                button.GetComponent<Button>().onClick.AddListener(() => Judge(button)); //add listener to buttons
+            }
+            toggles = t;
+            buttons = b;
+        }
+    }
+    void Destroy(string tag)
+    {
+        GameObject[] prevOb = GameObject.FindGameObjectsWithTag(tag);
+        if (prevOb == null)
+        {
+            return;
+        }
+        for (int i = 0; i < prevOb.Length; i++)
+        {
+            GameObject ob = prevOb[i];
+            GameObject.Destroy(ob);
+        }
+    }
+
     void Judge(GameObject button)   //judge the button that user have just selected
     {
 
@@ -56,9 +85,12 @@ public class Judging : MonoBehaviour  {
             if (myAns == rightAnswers[0])  //if the answer is right
             {
                 score.text = "That's right!";
+                Destroy("Button");
+
                 id++;
                 ShowQuestion.Show();           //show the next question and options
                 rightAnswers = ReadFromXml.ReadRightAnswers(id);  //update the right answer 
+                Init();
             }
             else
             {
@@ -71,7 +103,10 @@ public class Judging : MonoBehaviour  {
 
     void Judge (GameObject[] toggles)
     {
-        
+        if (Time.time - lastTime < 5)
+        {
+            return;
+        }
         rightAnswers = ReadFromXml.ReadRightAnswers(id);
         if(toggles.Length == rightAnswers.Count )
         {
@@ -84,9 +119,16 @@ public class Judging : MonoBehaviour  {
                 }
             }
             score.text = "That's right!";
+            Destroy("Toggle");
+            id++;
+            ShowQuestion.Show();           //show the next question and options
+            rightAnswers = ReadFromXml.ReadRightAnswers(id);  //update the right answer 
+            Init();
             return;
         }
         score.text = "Try again";
+        lastTime = Time.time;
+        updateOn = true;
     }
 
 	void Update () {

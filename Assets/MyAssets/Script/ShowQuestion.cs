@@ -30,7 +30,7 @@ public class ShowQuestion : MonoBehaviour {
     {
 
         questionText.text = ReadFromXml.ReadQuestion(id);  //show question
-        f
+        
         isMultiType = ReadFromXml.IsMulti(id);   //get question type
         List<string> optionList = ReadFromXml.ReadAnswers(id);  //read options
         int optionNum = optionList.Count;
@@ -44,7 +44,7 @@ public class ShowQuestion : MonoBehaviour {
                 toggles[i] = GameObject.Instantiate(oriToggle, answerSheet);
                 Text optionText = toggles[i].GetComponentInChildren<Text>();
                 optionText.text = optionList[i];
-                toggles[i].tag = "Button";
+                toggles[i].tag = "Toggle";
                 toggles[i].transform.position = originalTogglePosition;
                 originalTogglePosition += Vector3.down * 0.12f;
             }

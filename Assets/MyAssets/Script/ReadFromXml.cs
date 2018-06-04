@@ -78,7 +78,8 @@ public class ReadFromXml  {
     public static bool IsMulti(int id)
     {
         XmlNode task = ReadTask("//Question", id);
-        if (task.Attributes["type"].Value == "multi")
+        string typeValue = task.Attributes["type"].Value;
+        if (typeValue == "multi")
         {
             return true;
         }

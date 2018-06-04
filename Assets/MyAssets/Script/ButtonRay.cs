@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class ButtonRay : MonoBehaviour {
     private Transform  camera;
     private GameObject currentButton;
-    private float timeToSelect = 2.0f;  //timelaps
+    private float timeToSelect = 1.0f;  //timelaps
     private float countDown = 1.0f;
 
     void Start()
